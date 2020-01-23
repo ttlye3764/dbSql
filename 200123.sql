@@ -194,7 +194,7 @@ OR (empno LIKE '78%' AND hiredate > TO_DATE('19810601','YYYYMMDD'));
 -- 데이터가 삭제되고, 다른 데이터가 들어 올 수도 있음
 
 -- < ORDER BY >
--- ASC : 오름차순 (dafult)
+-- ASC : 오름차순 (dafult) 
 -- DESC : 내림차순
 -- 사용법
 -- SELECT *
@@ -253,7 +253,7 @@ ORDER BY comm DESC, empno;
 SELECT *
 FROM emp
 WHERE comm > 0
-ORDER BY comm DESC, empno;
+ORDER BY comm DESC, empno; 
 
 -- emp 테이블에서 관리자가 있는 사람들만 조회하고, 직군(job)순으로 오름차순 정렬하고, 직업이 같을 경우 사번이 큰 사원이 먼저 조회
 SELECT *
