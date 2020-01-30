@@ -44,10 +44,13 @@ FROM dual;
 --date 
 --날짜 조작
 --ROUND(DATE, format) : 반올림
---TRUN(DATE, format) : 절삭
+--TRUNC(DATE, format) : 절삭
 
-SELECT ename, hiredate, 
+SELECT ename, hiredate, SYSDATE,
+       ROUND(SYSDATE, 'MM'),
+       TRUNC(SYSDATE, 'MM'),
        MONTHS_BETWEEN(SYSDATE, hiredate), -- MONTHS_BETWEEN(DATE,DATE) : 두 날짜 사이의 개월수
+       MONTHS_BETWEEN(TO_DATE('19941011'), TO_DATE('19941211')), -- MONTHS_BETWEEN(DATE,DATE) : 두 날짜 사이의 개월수
        MONTHS_BETWEEN(TO_DATE('2020-01-17','YYYY-MM-DD'), hiredate)
 FROM emp
 WHERE ename ='SMITH';
@@ -257,21 +260,34 @@ FROM emp
 ORDER BY job;
 
 -- 예제) emp테이블에서 JOB 컬럼의 값이 SALMESMAN 이면서 sal가 1400보다 크면 SAL * 1.05 리턴
---                                  MANAGER 이면서 SAL가 1400보다 작으면 SAL * 1.1 리턴
+--                                  SALESMAN 이면서 SAL가 1400보다 작으면 SAL * 1.1 리턴
+--                                  MANAGER 이면 SAL * 1.1리턴
 --                                  PRESIDENT 이면 SAL * 1.2 리턴
 --                                  그 밖의 사람들은 SAL 리턴
 
 SELECT ename, job, sal,
         CASE
             WHEN job = 'SALESMAN' AND sal>1400 THEN sal* 1.05
-            WHEN job = 'MANAGER' AND sal <1400 THEN sal* 1.1
+            WHEN job = 'SALESMAN' AND sal <1400 THEN sal* 1.1
+            WHEN job = 'MANAGER' THEN sal* 1.1
             WHEN job = 'PRESIDENT' THEN sal* 1.2
             ELSE sal
        END bonus_sal
 FROM emp
 ORDER BY job;
 
--- 
+-- 이구문 중요한점 : CASE나 DECODE 구문이 중첩이 가능하다는 점
+SELECT ename, sal, job, 
+        DECODE(job, 'SALESMAN', (CASE 
+                                     WHEN SAL >1400 THEN sal * 1.05
+                                     WHEN SAL <1400 THEN sal * 1.1
+                                 END),
+                    'MANAGER', sal* 1.1, 
+                    'PRESIDENT', sal* 1.2, sal) bonus_sal
+FROM emp
+ORDER BY job;
+
+----------------------------------------------------------------------------------- 
 
 SELECT ename, job, sal
 FROM emp;

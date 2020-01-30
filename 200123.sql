@@ -260,3 +260,7 @@ SELECT *
 FROM emp
 WHERE mgr IS NOT NULL
 ORDER BY job, empno DESC;
+
+SELECT *
+FROM emp;
+WHERE job IN( 'SALESMAN') and hiredate >= TO_DATE('19810601','YYYYMMDD');

@@ -10,7 +10,7 @@ ORDER BY ename desc;
 -- 페이징 혹은 정렬과 관련된 응용 쿼리에서 중요하게 사용
 -- 1.
 SELECT ROWNUM, empno, ename
-FROM emp
+FROM emp;
 WHERE deptno IN(10,30) AND sal > 1500;
 
 -- 2.ROWNUM alies주기
@@ -287,6 +287,12 @@ FROM dual;
 -- 숫자 표기 : 숫자 --> 100
 -- 문자 표기 : 싱글 쿼테이션 --> '문자열'
 -- 날짜 표기 : TO_DATE('문자열 날짜 값', '문자열 날짜 값의 표시 형식') --> TO_DATE('19941011', 'YYYYMMDD')
-
+                                                                                                                                                                                    
 --과제 ppt function(date 실습 fn1) 
 --ppt 129까지 했어용
+
+SELECT TO_DATE('20191231','YYYYMMDD') LASTDAY, TO_DATE('20191231','YYYYMMDD')-5 LASTDAY_BEFORE5, 
+       SYSDATE NOW, SYSDATE-3 NOW_BEFORE3
+FROM dual;
+
+                    
